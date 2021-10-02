@@ -1,7 +1,5 @@
 package main_pkg;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -13,9 +11,15 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.FlowLayout;
 
 
 public class Ventana_main extends JFrame {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	private JPanel contentPane;
 	
@@ -24,13 +28,13 @@ public class Ventana_main extends JFrame {
 	private JMenuItem mbiAgregar;
 	private JMenuItem mbiListar;
 	
-	private Ventana_Agregar frameAlta;
-	private Ventana_Listar frameListado; 
+	//private static JList lista;
+	//private DefaultListModel<Peliculas> dlmodel;
 
 
 	public Ventana_main() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(600, 200, 250, 160);
+		setBounds(600, 200, 650, 500);
 		
 		menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -41,17 +45,13 @@ public class Ventana_main extends JFrame {
 		mbiAgregar = new JMenuItem("Agregar");
 		mbiAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				frameAlta = new Ventana_Agregar();
-				EventQueue.invokeLater(new Runnable() {
-					public void run() {
-						try {
-							frameAlta = new Ventana_Agregar();
-							frameAlta.setVisible(true);
-							} catch (Exception e) {
-							e.printStackTrace();
-							}
-						}
-					});
+				contentPane.removeAll();
+				Panel_AgregarPelicula panel = new Panel_AgregarPelicula();
+				contentPane.add(panel);
+				contentPane.repaint();
+				contentPane.revalidate();
+				System.out.println("agregar");
+
 			}
 		});
 		mbPelicula.add(mbiAgregar);
@@ -60,17 +60,13 @@ public class Ventana_main extends JFrame {
 		mbPelicula.add(mbiListar);
 		mbiListar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				frameListado = new Ventana_Listar();
-				EventQueue.invokeLater(new Runnable() {
-					public void run() {
-						try {
-							frameListado = new Ventana_Listar();
-							frameListado.setVisible(true);
-							} catch (Exception e) {
-							e.printStackTrace();
-							}
-						}
-					});
+				contentPane.removeAll();
+				Panel_ListarPeliculas panel = new Panel_ListarPeliculas();
+				//panel.setDlmodel(dlmodel);
+				contentPane.add(panel);
+				contentPane.repaint();
+				contentPane.revalidate();
+				System.out.println("listar");
 			}
 		});
 		
@@ -78,11 +74,10 @@ public class Ventana_main extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(null);
+		contentPane.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		JLabel lblTpgrupo = new JLabel("TP5-GRUPO5");
 		lblTpgrupo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTpgrupo.setBounds(70, 30, 91, 40);
 		contentPane.add(lblTpgrupo);
 	}
 }
