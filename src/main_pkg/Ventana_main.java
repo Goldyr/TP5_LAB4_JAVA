@@ -50,8 +50,6 @@ public class Ventana_main extends JFrame {
 				contentPane.add(panel);
 				contentPane.repaint();
 				contentPane.revalidate();
-				System.out.println("agregar");
-
 			}
 		});
 		mbPelicula.add(mbiAgregar);
@@ -66,7 +64,6 @@ public class Ventana_main extends JFrame {
 				contentPane.add(panel);
 				contentPane.repaint();
 				contentPane.revalidate();
-				System.out.println("listar");
 			}
 		});
 		

@@ -7,11 +7,11 @@ public class Peliculas {
 	private Categorias Genero;
 	private static int cant=1;
 	
-	public Peliculas(int iD, String nombre, String genero) {
+	public Peliculas(String nombre, Categorias genero) {
 		super();
 		ID = cant;
 		Nombre = nombre;
-		Genero.setNombre(genero); 
+		Genero = genero; 
 		cant++;
 	}
 	
@@ -37,6 +37,12 @@ public class Peliculas {
 	public void setGenero(Categorias genero) {
 		Genero = genero;
 	}
+
+	@Override
+	public String toString() {
+		return "ID=" + ID + ", Nombre=" + Nombre + ", Genero=" + Genero;
+	}
+	
 	
 	
 }

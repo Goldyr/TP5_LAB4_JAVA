@@ -3,15 +3,20 @@ package main_pkg;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
 import java.awt.FlowLayout;
 import javax.swing.BoxLayout;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Panel_AgregarPelicula extends JPanel {
 	/**
@@ -19,8 +24,10 @@ public class Panel_AgregarPelicula extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JTextField tfNombre;
-	private JComboBox<String> cb_Genero;
+	private JComboBox<Categorias> cb_Genero;
 	private JLabel lbl_ID;
+	private Peliculas peli;
+
 	/**
 	 * Create the panel.
 	 */
@@ -74,13 +81,13 @@ public class Panel_AgregarPelicula extends JPanel {
 		gbc_lblGenero.gridy = 3;
 		add(lblGenero, gbc_lblGenero);
 		
-		cb_Genero = new JComboBox<String>();
+		cb_Genero = new JComboBox<Categorias>();
 		
-		cb_Genero.addItem("Seleccione un genero");
-		cb_Genero.addItem("Terror");
-		cb_Genero.addItem("Accion");
-		cb_Genero.addItem("Suspenso");
-		cb_Genero.addItem("Romantica");
+		cb_Genero.addItem(new Categorias("Seleccione un genero"));
+		cb_Genero.addItem(new Categorias("Terror"));
+		cb_Genero.addItem(new Categorias("Accion"));
+		cb_Genero.addItem(new Categorias("Suspenso"));
+		cb_Genero.addItem(new Categorias("Romantica"));
 		
 		
 		GridBagConstraints gbc_cb_Genero = new GridBagConstraints();
@@ -91,6 +98,30 @@ public class Panel_AgregarPelicula extends JPanel {
 		add(cb_Genero, gbc_cb_Genero);
 		
 		JButton btnAceptar = new JButton("Aceptar");
+		btnAceptar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+
+				if(!tfNombre.getText().isEmpty() && cb_Genero.getSelectedItem().toString()!="Seleccione un genero") {
+					String nombre = tfNombre.getText();  ///establezco el nombre
+					Categorias cate = new Categorias(cb_Genero.getSelectedItem().toString());  ///establezo el nombre de la categoria
+
+					peli = new Peliculas(nombre, cate);  //creo el objeto peliculas con el nombre y nombre de la categoria
+					//defaultList.addElement(peli);
+					tfNombre.setText("");
+					System.out.println(peli.toString());
+				}
+				else if(tfNombre.getText().isEmpty()==true || cb_Genero.getSelectedItem().toString()=="Seleccione un genero"){
+					if(tfNombre.getText().isEmpty()) {
+						JOptionPane.showMessageDialog(null,"Ingrese un nombre","Mensaje", JOptionPane.ERROR_MESSAGE);
+					}
+					if(cb_Genero.getSelectedItem().toString()=="Seleccione un genero") {
+						JOptionPane.showMessageDialog(null, "Seleccion un genero","Mensaje", JOptionPane.ERROR_MESSAGE);
+
+					}
+				}
+			}
+		});
 		GridBagConstraints gbc_btnAceptar = new GridBagConstraints();
 		gbc_btnAceptar.insets = new Insets(0, 0, 0, 5);
 		gbc_btnAceptar.anchor = GridBagConstraints.NORTHWEST;

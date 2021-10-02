@@ -3,6 +3,11 @@ package main_pkg;
 public class Categorias {
 
 	private String nombre;
+	
+	public Categorias(String nombre) {
+		this.nombre = nombre;
+	}
+
 
 	public String getNombre() {
 		return nombre;
@@ -10,6 +15,12 @@ public class Categorias {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+
+	@Override
+	public String toString() {
+		return nombre;
 	}
 	
 }
