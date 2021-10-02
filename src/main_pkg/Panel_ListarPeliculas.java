@@ -20,16 +20,28 @@ public class Panel_ListarPeliculas extends JPanel {
 	 * Create the panel.
 	 */
 	public Panel_ListarPeliculas() {
-		setLayout(null);
+		GridBagLayout gridBagLayout = new GridBagLayout();
+		gridBagLayout.columnWidths = new int[]{74, 40, 273, 0};
+		gridBagLayout.rowHeights = new int[]{54, 193, 0};
+		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+		setLayout(gridBagLayout);
 		//setBounds(600, 200, 500, 300);
 		
 		JLabel lblNewLabel = new JLabel("Peliculas");
-		lblNewLabel.setBounds(74, 141, 40, 14);
-		add(lblNewLabel);
+		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
+		gbc_lblNewLabel.anchor = GridBagConstraints.WEST;
+		gbc_lblNewLabel.insets = new Insets(0, 0, 0, 5);
+		gbc_lblNewLabel.gridx = 1;
+		gbc_lblNewLabel.gridy = 1;
+		add(lblNewLabel, gbc_lblNewLabel);
 		
 		listPeliculas = new JList<Peliculas>();
-		listPeliculas.setBounds(138, 54, 273, 193);
-		add(listPeliculas);
+		GridBagConstraints gbc_listPeliculas = new GridBagConstraints();
+		gbc_listPeliculas.fill = GridBagConstraints.BOTH;
+		gbc_listPeliculas.gridx = 2;
+		gbc_listPeliculas.gridy = 1;
+		add(listPeliculas, gbc_listPeliculas);
 	}
 	
 	public DefaultListModel<Peliculas> getDlmodel() {
