@@ -9,6 +9,8 @@ import javax.swing.JTextField;
 
 import java.awt.FlowLayout;
 import javax.swing.BoxLayout;
+import javax.swing.DefaultListModel;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
@@ -27,11 +29,19 @@ public class Panel_AgregarPelicula extends JPanel {
 	private JComboBox<Categorias> cb_Genero;
 	private JLabel lbl_ID;
 	private Peliculas peli;
+	private JButton btnAceptar;
+	private DefaultListModel<Peliculas> dlmodel;
 
 	/**
 	 * Create the panel.
 	 */
 	public Panel_AgregarPelicula() {
+		crearVisual();
+		crearLogicaBoton();
+	}
+	
+
+	private void crearVisual() {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{76, 11, 37, 35, 86, 1, 28, 71, 0};
 		gridBagLayout.rowHeights = new int[]{23, 0, 0, 0, 0, 0};
@@ -39,6 +49,8 @@ public class Panel_AgregarPelicula extends JPanel {
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		//setBounds(600, 200, 500, 300);
+		
+		dlmodel = new DefaultListModel<Peliculas>();
 		
 		JLabel lblNewLabel = new JLabel("ID");
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
@@ -97,31 +109,10 @@ public class Panel_AgregarPelicula extends JPanel {
 		gbc_cb_Genero.gridy = 3;
 		add(cb_Genero, gbc_cb_Genero);
 		
-		JButton btnAceptar = new JButton("Aceptar");
-		btnAceptar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				
+		btnAceptar = new JButton("Aceptar");
+		
+		mostrarIDPelicula();
 
-				if(!tfNombre.getText().isEmpty() && cb_Genero.getSelectedItem().toString()!="Seleccione un genero") {
-					String nombre = tfNombre.getText();  ///establezco el nombre
-					Categorias cate = new Categorias(cb_Genero.getSelectedItem().toString());  ///establezo el nombre de la categoria
-
-					peli = new Peliculas(nombre, cate);  //creo el objeto peliculas con el nombre y nombre de la categoria
-					//defaultList.addElement(peli);
-					tfNombre.setText("");
-					System.out.println(peli.toString());
-				}
-				else if(tfNombre.getText().isEmpty()==true || cb_Genero.getSelectedItem().toString()=="Seleccione un genero"){
-					if(tfNombre.getText().isEmpty()) {
-						JOptionPane.showMessageDialog(null,"Ingrese un nombre","Mensaje", JOptionPane.ERROR_MESSAGE);
-					}
-					if(cb_Genero.getSelectedItem().toString()=="Seleccione un genero") {
-						JOptionPane.showMessageDialog(null, "Seleccion un genero","Mensaje", JOptionPane.ERROR_MESSAGE);
-
-					}
-				}
-			}
-		});
 		GridBagConstraints gbc_btnAceptar = new GridBagConstraints();
 		gbc_btnAceptar.insets = new Insets(0, 0, 0, 5);
 		gbc_btnAceptar.anchor = GridBagConstraints.NORTHWEST;
@@ -129,6 +120,54 @@ public class Panel_AgregarPelicula extends JPanel {
 		gbc_btnAceptar.gridy = 4;
 		add(btnAceptar, gbc_btnAceptar);
 		
+	}
 
+	private void crearLogicaBoton() {
+		btnAceptar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(!tfNombre.getText().isEmpty() && cb_Genero.getSelectedItem().toString()!="Seleccione un genero") {
+					agregarPelicula();
+				}
+				else if(tfNombre.getText().isEmpty()==true || cb_Genero.getSelectedItem().toString()=="Seleccione un genero"){
+					mostrarMensajesError();
+				}
+				
+				// Se actualiza el id que se va a mostrar
+				mostrarIDPelicula();
+			}
+		});
+	}
+	
+	
+	// Metodo para agregar la pelicula con los valores ingresados
+	private void agregarPelicula() {
+		String nombre = tfNombre.getText();  ///establezco el nombre
+		Categorias cate = new Categorias(cb_Genero.getSelectedItem().toString());  ///establezo el nombre de la categoria
+
+		peli = new Peliculas(nombre, cate);  //creo el objeto peliculas con el nombre y nombre de la categoria
+		dlmodel.addElement(peli);
+		tfNombre.setText("");
+		System.out.println(peli.toString());
+	}
+	
+	// Metodo para los mensajes de error
+	private void mostrarMensajesError() {
+		if(tfNombre.getText().isEmpty()) {
+			JOptionPane.showMessageDialog(null,"Ingrese un nombre","Mensaje", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+		if(cb_Genero.getSelectedItem().toString()=="Seleccione un genero") {
+			JOptionPane.showMessageDialog(null, "Seleccion un genero","Mensaje", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+	}
+	
+	// Metodo para actualizar el ID de la pelicula siguiente
+	private void mostrarIDPelicula() {
+		lbl_ID.setText(String.valueOf(Peliculas.getProxid()));
+	}
+	
+	public void setDlmodel(DefaultListModel<Peliculas> dlVentana) {
+		this.dlmodel = dlVentana;
 	}
 }

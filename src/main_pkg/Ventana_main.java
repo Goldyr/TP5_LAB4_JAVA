@@ -1,10 +1,12 @@
 package main_pkg;
 
 
+import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.SwingConstants;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
@@ -29,7 +31,7 @@ public class Ventana_main extends JFrame {
 	private JMenuItem mbiListar;
 	
 	//private static JList lista;
-	//private DefaultListModel<Peliculas> dlmodel;
+	private static DefaultListModel<Peliculas> dlmodel;
 
 
 	public Ventana_main() {
@@ -43,10 +45,15 @@ public class Ventana_main extends JFrame {
 		menuBar.add(mbPelicula);
 		
 		mbiAgregar = new JMenuItem("Agregar");
+		
+		//lista = new JList();
+		dlmodel = new DefaultListModel<Peliculas>();
+		
 		mbiAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				contentPane.removeAll();
 				Panel_AgregarPelicula panel = new Panel_AgregarPelicula();
+				panel.setDlmodel(dlmodel);
 				contentPane.add(panel);
 				contentPane.repaint();
 				contentPane.revalidate();
@@ -60,7 +67,7 @@ public class Ventana_main extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				contentPane.removeAll();
 				Panel_ListarPeliculas panel = new Panel_ListarPeliculas();
-				//panel.setDlmodel(dlmodel);
+				panel.setDlmodel(dlmodel);
 				contentPane.add(panel);
 				contentPane.repaint();
 				contentPane.revalidate();

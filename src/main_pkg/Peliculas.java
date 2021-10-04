@@ -15,7 +15,7 @@ public class Peliculas {
 		cant++;
 	}
 	
-	public int getProxid() {
+	static public int getProxid() {
 		return cant;
 	}
 	
