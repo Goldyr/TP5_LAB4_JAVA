@@ -1,11 +1,16 @@
 package main_pkg;
 
-public class Peliculas {
+public class Peliculas implements Comparable <Peliculas> {
 
 	private int ID;
 	private String Nombre;
 	private Categorias Genero;
 	private static int cant=1;
+	
+	public Peliculas() {
+		ID = cant;
+		cant++;
+	}
 	
 	public Peliculas(String nombre, Categorias genero) {
 		super();
@@ -40,9 +45,16 @@ public class Peliculas {
 
 	@Override
 	public String toString() {
-		return "ID=" + ID + ", Nombre=" + Nombre + ", Genero=" + Genero;
+		return  ID +"- " + Nombre + "- " + Genero;
 	}
-	
+
+	@Override
+	public int compareTo(Peliculas o) {
+		int devolver;
+		devolver= o.getNombre().compareTo(this.Nombre);
+		if(devolver >0 ){return -1;}
+		else {if(devolver < 0) {return 1;}else{return 0;}}
+	}
 	
 	
 }

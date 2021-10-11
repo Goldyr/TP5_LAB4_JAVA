@@ -127,6 +127,7 @@ public class Panel_AgregarPelicula extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				if(!tfNombre.getText().isEmpty() && cb_Genero.getSelectedItem().toString()!="Seleccione un genero") {
 					agregarPelicula();
+					
 				}
 				else if(tfNombre.getText().isEmpty()==true || cb_Genero.getSelectedItem().toString()=="Seleccione un genero"){
 					mostrarMensajesError();
@@ -161,6 +162,7 @@ public class Panel_AgregarPelicula extends JPanel {
 			return;
 		}
 	}
+	
 	
 	// Metodo para actualizar el ID de la pelicula siguiente
 	private void mostrarIDPelicula() {

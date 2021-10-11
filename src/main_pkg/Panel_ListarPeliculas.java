@@ -7,6 +7,9 @@ import javax.swing.JPanel;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.util.ArrayList;
+import java.util.Collections;
+
 
 public class Panel_ListarPeliculas extends JPanel {
 
@@ -42,14 +45,53 @@ public class Panel_ListarPeliculas extends JPanel {
 		gbc_listPeliculas.gridx = 2;
 		gbc_listPeliculas.gridy = 1;
 		add(listPeliculas, gbc_listPeliculas);
+		
 	}
 	
 	public DefaultListModel<Peliculas> getDlmodel() {
 		return dlmodel;
 	}
 
+
+	
+	private void alphabeticSort() {
+
+		
+		ArrayList<Peliculas> arrPeliculas = Collections.list(dlmodel.elements());
+		
+		/*
+		 * System.out.println("Before sorting:\n");
+		for (Peliculas peli : arrPeliculas) {
+			System.out.println(peli);
+		}
+		 * */
+		
+		arrPeliculas.sort(new PeliculasComparator());
+		
+/*
+ * 		System.out.println("Before sorting:\n");
+		for (Peliculas peli : arrPeliculas) {
+			System.out.println(peli);
+		}
+		
+ * */
+		
+		dlmodel.clear();
+		
+		// Ordenar
+		
+		for (Peliculas peli : arrPeliculas) {
+			dlmodel.addElement(peli);
+		}
+
+	
+	}
+	
 	public void setDlmodel(DefaultListModel<Peliculas> dlmodel) {
 		this.dlmodel = dlmodel;
+		
+		alphabeticSort();
+		
+		listPeliculas.setModel(this.dlmodel);
 	}
-
 }
